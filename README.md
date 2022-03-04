@@ -3,7 +3,7 @@ Hai BCA Hackaton Project
 
 ### How to Clone the Project 
   1. **Clone** the repository "https://github.com/akbarsigit/HaiToko.git"
-  2. Cd to the project then run command "**mvn install**" to extract Maven dependency
+  2. Cd to the project then run command "**mvn install**" to extract Maven dependency and build the project
   3. To run the executable JAR file with Spring Boot, you can run command "**java -jar *jarFile.jar***" inside the target directory
   4. Then you can access the program from localhost
 
