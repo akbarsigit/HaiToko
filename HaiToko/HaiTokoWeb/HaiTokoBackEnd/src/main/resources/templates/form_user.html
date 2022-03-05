@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 	
-	<title>Admin Control Panel</title>
+	<title>User Form</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
@@ -50,22 +50,69 @@
 					</ul>
 				</div>
 				
-				
-				
 			</nav>
 		</div>
 	
-		<div>
-			<h1>Admin Control Panel</h1>
+	
+		<div class="text-center">
+			<h1>Create New User</h1>
 		</div>
+		
+		<!--Form-->
+		<form method="post" th:action="@{/users/save}" style="max-width:800px; margin:auto" th:object="${user}">
+			<div class="border border-secondary rounded p-2">
+				<div class="form-grup">
+					<label class="col-form-label">Email address</label>
+					<input type="email" th:field="*{email}" class="form-control" placeholder="Enter Email" required minlength="8" maxlength="128">
+				</div>
+			
+				
+				<div class="form-grup">
+					<label class="col-form-label">Name</label>
+					<input type="text" th:field="*{name}" class="form-control" placeholder="Enter Name" required minlength="2" maxlength="100">
+				</div>
+				
+				<div class="form-grup">
+					<label class="col-form-label">Password</label>
+					<input type="password" th:field="*{password}" class="form-control" placeholder="Enter Password" required minlength="5" maxlength="20">
+				</div>
+			
+				
+				<div class="form-grup">
+					<label class="col-form-label">Roles</label>
+					<th:block th:each="role : ${rolesList}">
+						<input type="checkbox" th:value="${role.id}" th:text="${role.name}" th:field="*{roles}" class="m-2"/>
+					</th:block>
+				</div>
+				
+				<div class="form-grup">
+					<label class="col-form-label">Status</label>
+					<input type="checkbox" th:field="*{status}"  />
+				</div>
+				
+				<div class="text-center">
+					<input type="submit" value="Save" class="btn btn-primary m-3"/>
+					<input type="button" value="Cancel" class="btn btn-secondary" id="btnCancel"/>
+				</div>
+				
+			</div>
+		</form>
 		
 		
 		<!--Footer-->
-		<div>
+		<div class="text-center">
 			<p>Copyright &copy; 2022 by HaiToko</p> 		
 		</div>
 		
 	</div>
-	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#btnCancel").on("click", function(){
+				window.location="[[@{/users}]]";
+			});
+		});
+	</script>
 </body>
+
+
 </html>

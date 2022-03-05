@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 	
-	<title>Admin Control Panel</title>
+	<title>Admin User Control Panel</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
@@ -50,18 +50,52 @@
 					</ul>
 				</div>
 				
-				
-				
 			</nav>
 		</div>
 	
+	
 		<div>
-			<h1>Admin Control Panel</h1>
+			<h1>Users Management Control Panel</h1>
+			<a th:href="@{/users/create}">Create New User!</a>
+			
 		</div>
 		
+		<div th:if="${message != null}" class="text-center alert alert-success">
+			[[${message}]]
+		</div>
+		
+		<!-- Table List -->
+		<div>
+			<table class = "table table-bordered table-striped table-hover table-responsive-lg">
+				<thead class = "thead-dark">
+					<tr>
+						<th>User ID</th>
+						<th>Email</th>
+						<th>Name</th>
+						<th>Roles</th>
+						<th>Status</th>
+						<th></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<tr th:each="user : ${myUsersList}">
+						<td>[[${user.id}]]</td>
+						<td>[[${user.email}]]</td>
+						<td>[[${user.name}]]</td>
+						<td>[[${user.roles}]]</td>
+						<td>[[${user.status}]]</td>
+						<td>
+							Edit &nbsp; Delete
+						</td>
+					</tr>
+				</tbody>
+				
+			</table>
+		</div>
 		
 		<!--Footer-->
-		<div>
+		<div class="text-center">
 			<p>Copyright &copy; 2022 by HaiToko</p> 		
 		</div>
 		
