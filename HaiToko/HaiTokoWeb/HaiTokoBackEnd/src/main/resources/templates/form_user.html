@@ -55,18 +55,18 @@
 	
 	
 		<div class="text-center">
-			<h1>Create New User</h1>
+			<h1>[[${title}]]</h1>
 		</div>
 		
 		<!--Form-->
-		<form method="post" th:action="@{/users/save}" style="max-width:800px; margin:auto" th:object="${user}">
+		<form method="post" th:action="@{/users/save}" style="max-width:800px; margin:auto" th:object="${user}" onsubmit = "return checkMail(this);">
+			<input type="hidden" th:field="*{id}"/>
 			<div class="border border-secondary rounded p-2">
 				<div class="form-grup">
 					<label class="col-form-label">Email address</label>
 					<input type="email" th:field="*{email}" class="form-control" placeholder="Enter Email" required minlength="8" maxlength="128">
 				</div>
 			
-				
 				<div class="form-grup">
 					<label class="col-form-label">Name</label>
 					<input type="text" th:field="*{name}" class="form-control" placeholder="Enter Name" required minlength="2" maxlength="100">
@@ -74,8 +74,10 @@
 				
 				<div class="form-grup">
 					<label class="col-form-label">Password</label>
-					<input type="password" th:field="*{password}" class="form-control" placeholder="Enter Password" required minlength="5" maxlength="20">
+					<input th:if="${user.id == null}" type="password" th:field="*{password}" class="form-control" placeholder="Enter Password" required minlength="5" maxlength="20">
+					<input th:if="${user.id != null}" type="password" th:field="*{password}" class="form-control" placeholder="Enter Password" minlength="5" maxlength="20">
 				</div>
+				
 			
 				
 				<div class="form-grup">
@@ -111,6 +113,29 @@
 				window.location="[[@{/users}]]";
 			});
 		});
+		
+		function checkMail(form){
+			url = "[[@{/users/checkMail}]]";
+			userId = $("#id").val();
+			userEmail = $("#email").val();
+			csrf = $("input[name='_csrf']").val();
+			params = {id:userId, email: userEmail, _csrf: csrf};
+			
+			$.post(url, params, function(response){
+				if (response == "ok"){
+					form.submit();
+				}else if (response == "duplicated"){
+					alert("Sorry, email already registered");
+				}else{
+					alert("Sorry, server error");
+				}
+			}).fail(function(){
+				alert("Sorry, our server can't process the request");
+			});
+			
+			return false;
+		}
+		
 	</script>
 </body>
 

@@ -84,9 +84,14 @@
 						<td>[[${user.email}]]</td>
 						<td>[[${user.name}]]</td>
 						<td>[[${user.roles}]]</td>
-						<td>[[${user.status}]]</td>
+						
+						
 						<td>
-							Edit &nbsp; Delete
+							<a th:if="${user.status == true}"><input type="checkbox" checked/></a>
+							<a th:if="${user.status != true}"><input type="checkbox" /></a>
+						<td>
+							<a th:href="@{'/users/edit/'+${user.id}}">Edit</a> &nbsp; 
+							<a class = "delete" th:href="@{'/users/delete/'+${user.id}}">Delete</a>
 						</td>
 					</tr>
 				</tbody>
@@ -94,12 +99,42 @@
 			</table>
 		</div>
 		
+		<div class = "modal fade text-center" id = "deleteConfirm">
+			<div class = "modal-dialog">
+				<div class="modal-content">
+					<div class = "modal-header">
+						<h4 class = "modal-title" >Delete Confirmation</h4>
+						<button type="button" class="clese" data-dismiss="modal">&times;</button>
+					</div>
+					<div class="modal-body">
+						<span>Are you sure you want to delete the User?</span>
+					</div>
+					
+					<div class="modal-footer">
+						<a class="btn btn-success" id="yesButton" href="">Yes</a>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
 		<!--Footer-->
 		<div class="text-center">
 			<p>Copyright &copy; 2022 by HaiToko</p> 		
 		</div>
 		
 	</div>
-	
+	<script type="text/javascript">
+	 	$(document).ready(function(){
+	 		$(".delete").on("click", function(e){
+	 			e.preventDefault();
+	 			link = $(this);
+	 			$("#yesButton").attr("href", link.attr("href"));
+	 			
+	 			$("#deleteConfirm").modal();
+	 		});
+	 	});
+	</script>
 </body>
 </html>
