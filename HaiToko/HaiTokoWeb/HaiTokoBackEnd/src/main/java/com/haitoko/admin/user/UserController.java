@@ -1,6 +1,9 @@
 package com.haitoko.admin.user;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -75,5 +78,22 @@ public class UserController {
 		}
 		return "redirect:/users";
 	}
+	
+	@GetMapping("/users/{id}/status/{status}")
+	public String updateUserStatus(@PathVariable("id") Integer id, @PathVariable("status") boolean status, RedirectAttributes redirectAttributes) {
+		service.updateUserStatus(id, status);
+		String mssg = "User status has been changed successfully";
+		redirectAttributes.addFlashAttribute("message", mssg);
+		
+		return "redirect:/users";
+	}
+	
+	@GetMapping("/users/csv")
+	public void exportCSV(HttpServletResponse response) throws IOException {
+		List<User> users = service.listAll();
+		UserCsvExport exportUser = new UserCsvExport();
+		exportUser.export(users, response);
+	}
+	
 	
 }

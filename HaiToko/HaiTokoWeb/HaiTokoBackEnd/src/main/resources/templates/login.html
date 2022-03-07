@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	
+	<title>Login</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+	
+</head>
+<body>
+	<div class="container-fluid text-center">
+		
+		<div>
+			<h1>Login</h1>		
+		</div>
+		
+		<form th:action="@{/login}" method="post" style="max-width:400px; margin:auto">
+			<div th:if="${param.error}">
+				<p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+			</div>
+				
+			<div th:if="${param.logout}">
+				<p class="text-warning">You have been logged out successfully! </p>
+			</div>
+			
+			<div class="border border-secondary rounded p-4 ">
+				<p>Login to access</p>
+				
+				<div class="text-left">
+					<p>
+						<label class="col-form-label">Email address</label>
+						<input type="email" name="email" class="form-control" required placeholder="E-mail"/>
+					</p>
+					<p>
+						<label class="col-form-label">Password</label>
+						<input type="password" name="password" class="form-control" required placeholder="Password"/>
+					</p>
+				</div>
+	
+				<p><input type="submit" class="btn btn-primary" value="Login" /></p>
+				
+			</div>
+		</form>
+		
+		
+		
+		<!--Footer-->
+		<div>
+			<p>Copyright &copy; 2022 by HaiToko</p> 		
+		</div>
+		
+	</div>
+	
+</body>
+</html>

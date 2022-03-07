@@ -56,7 +56,8 @@
 	
 		<div>
 			<h1>Users Management Control Panel</h1>
-			<a th:href="@{/users/create}">Create New User!</a>
+			<a th:href="@{/users/create}">Create New User!</a> &nbsp;
+			<a th:href="@{/users/csv}">Export CSV</a>
 			
 		</div>
 		
@@ -86,10 +87,17 @@
 						<td>[[${user.roles}]]</td>
 						
 						
+						<!-- <td>
+							<a th:if="${user.status == true}" th:href="@{'/users/'+${user.id}+'/status/false'}"><input type="checkbox" checked/></a>
+							<a th:if="${user.status != true}" th:href="@{'/users/'+${user.id}+'/status/true'}"><input type="checkbox" /></a>
+						<td> -->
+						
+						
 						<td>
-							<a th:if="${user.status == true}"><input type="checkbox" checked/></a>
-							<a th:if="${user.status != true}"><input type="checkbox" /></a>
+							<input th:if="${user.status == true}" type="checkbox" checked/><a class="ml-2" th:if="${user.status == true}" th:href="@{'/users/'+${user.id}+'/status/false'}">disable</a>
+							<input th:if="${user.status != true}" type="checkbox" /><a class="ml-2" th:if="${user.status != true}" th:href="@{'/users/'+${user.id}+'/status/true'}">enable</a>
 						<td>
+						
 							<a th:href="@{'/users/edit/'+${user.id}}">Edit</a> &nbsp; 
 							<a class = "delete" th:href="@{'/users/delete/'+${user.id}}">Delete</a>
 						</td>

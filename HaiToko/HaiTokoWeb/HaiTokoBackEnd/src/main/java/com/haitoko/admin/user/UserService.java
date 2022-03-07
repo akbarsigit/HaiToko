@@ -3,6 +3,8 @@ package com.haitoko.admin.user;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +14,7 @@ import com.haitoko.share.entity.Role;
 import com.haitoko.share.entity.User;
 
 @Service
+@Transactional
 public class UserService {
 
 	@Autowired
@@ -45,7 +48,6 @@ public class UserService {
 		}else {
 			encodePass(myUser);
 		}
-		
 		
 		userRepo.save(myUser);
 	}
@@ -88,5 +90,10 @@ public class UserService {
 		
 		userRepo.deleteById(id);
 	}
+	
+	public void updateUserStatus(Integer id, boolean status) {
+		userRepo.updateStatus(id, status);
+	}
+	
 	
 }
