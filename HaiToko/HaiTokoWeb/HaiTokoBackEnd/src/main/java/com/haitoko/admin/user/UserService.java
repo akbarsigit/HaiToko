@@ -24,6 +24,9 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+	public User getByEmail(String email) {
+		return userRepo.getUserByEmail(email);
+	}
 	
 	public List<User> listAll(){
 		return (List<User>) userRepo.findAll();
@@ -51,6 +54,20 @@ public class UserService {
 		
 		userRepo.save(myUser);
 	}
+	
+	public User updateAcc(User userForm) {
+		User userDB = userRepo.findById(userForm.getId()).get();
+		
+		if(!userForm.getPassword().isEmpty()) {
+			userDB.setPassword(userForm.getPassword());
+			encodePass(userDB);
+		}
+		
+		userDB.setName(userForm.getName());
+		
+		return userRepo.save(userDB);
+	}
+	
 	
 	private void encodePass(User user) {
 		String encodedPassword = passwordEncoder.encode(user.getPassword());

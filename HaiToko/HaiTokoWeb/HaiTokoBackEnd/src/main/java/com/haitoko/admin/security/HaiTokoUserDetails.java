@@ -66,5 +66,9 @@ public class HaiTokoUserDetails implements UserDetails {
 	public String getName() {
 		return "Hai, " + this.user.getName();
 	}
+	
+	public void setName(String name) {
+		this.user.setName(name);
+	}
 
 }

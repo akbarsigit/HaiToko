@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 	
-	<title>User Form</title>
+	<title>Account Details</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
@@ -82,16 +82,21 @@
 	
 	
 		<div class="text-center">
-			<h1>[[${title}]]</h1>
+			<h1>Account Details</h1>
 		</div>
 		
 		<!--Form-->
-		<form method="post" th:action="@{/users/save}" style="max-width:800px; margin:auto" th:object="${user}" onsubmit = "return checkMail(this);">
+		<form method="post" th:action="@{/account/update}" style="max-width:800px; margin:auto" th:object="${user}" >
 			<input type="hidden" th:field="*{id}"/>
+			
+			<div th:if="${message != null}" class="text-center alert alert-success">
+				[[${message}]]
+			</div>
+			
 			<div class="border border-secondary rounded p-2">
 				<div class="form-grup">
 					<label class="col-form-label">Email address</label>
-					<input type="email" th:field="*{email}" class="form-control" placeholder="Enter Email" required minlength="8" maxlength="128">
+					<input type="email" th:field="*{email}" class="form-control" readonly="readonly">
 				</div>
 			
 				<div class="form-grup">
@@ -101,22 +106,18 @@
 				
 				<div class="form-grup">
 					<label class="col-form-label">Password</label>
-					<input th:if="${user.id == null}" type="password" th:field="*{password}" class="form-control" placeholder="Enter Password" required minlength="5" maxlength="20">
-					<input th:if="${user.id != null}" type="password" th:field="*{password}" class="form-control" placeholder="Enter Password" minlength="5" maxlength="20">
-				</div>
-				
-			
-				
-				<div class="form-grup">
-					<label class="col-form-label">Roles</label>
-					<th:block th:each="role : ${rolesList}">
-						<input type="checkbox" th:value="${role.id}" th:text="${role.name}" th:field="*{roles}" class="m-2"/>
-					</th:block>
+					<input type="password" th:field="*{password}" class="form-control" placeholder="leave blank if didn't want to change the password" 
+							minlength="5" maxlength="20" oninput="checkMatchPass(document.getElementById('confirmPassword'))">
 				</div>
 				
 				<div class="form-grup">
-					<label class="col-form-label">Status</label>
-					<input type="checkbox" th:field="*{status}"  />
+					<label class="col-form-label">Confirm Password</label>
+					<input type="password" id="confirmPassword"  class="form-control" minlength="5" maxlength="20" oninput="checkMatchPass(this)">
+				</div>
+				
+				<div class="form-grup">
+					<label class="col-form-label">Roles:</label>
+						<span><b>[[${user.roles}]]</b></span>
 				</div>
 				
 				<div class="text-center">
@@ -141,26 +142,12 @@
 			});
 		});
 		
-		function checkMail(form){
-			url = "[[@{/users/checkMail}]]";
-			userId = $("#id").val();
-			userEmail = $("#email").val();
-			csrf = $("input[name='_csrf']").val();
-			params = {id:userId, email: userEmail, _csrf: csrf};
-			
-			$.post(url, params, function(response){
-				if (response == "ok"){
-					form.submit();
-				}else if (response == "duplicated"){
-					alert("Sorry, email already registered");
-				}else{
-					alert("Sorry, server error");
-				}
-			}).fail(function(){
-				alert("Sorry, our server can't process the request");
-			});
-			
-			return false;
+		function checkMatchPass(confirmPassword){
+			if(confirmPassword.value != $("#password").val()){
+				confirmPassword.setCustomValidity("Password not match!");
+			}else{
+				confirmPassword.setCustomValidity("");
+			}
 		}
 		
 	</script>

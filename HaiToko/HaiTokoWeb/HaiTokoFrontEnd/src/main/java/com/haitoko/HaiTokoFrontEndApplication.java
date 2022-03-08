@@ -1,4 +1,4 @@
-package com.haitoko.site;
+package com.haitoko;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
