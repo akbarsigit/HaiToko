@@ -24,7 +24,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().anyRequest().permitAll();
+//		http.authorizeRequests().anyRequest().permitAll();
+		
+		http.authorizeRequests()
+		.antMatchers("/customer").authenticated()
+		.anyRequest().permitAll().and()
+		.formLogin().loginPage("/login").usernameParameter("email").permitAll().and()
+		.logout().permitAll().and()
+		.rememberMe().key("1234567890_aBcDeFgHiJkLmNoPqRsTuVwXyZ").tokenValiditySeconds(1 * 24 * 59 * 59);	
+		
 	}
 
 	@Override
@@ -32,5 +40,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		web.ignoring().antMatchers("/js/**", "/webjars/**");
 	}
 
+	@Bean
+	public UserDetailsService userDetailsService() {
+		return new CustomerUserDetailsService();
+	}
+	
+//	@Override
+//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//		auth.authenticationProvider(authenticationProvider());
+//	}
+	
+	@Bean
+	public DaoAuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+
+		authProvider.setUserDetailsService(userDetailsService());
+		authProvider.setPasswordEncoder(passwordEncoder());
+
+		return authProvider;
+	}	
 	
 }

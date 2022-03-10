@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.haitoko.share.entity.Customer;
+import com.haitoko.share.entity.User;
 
 import net.bytebuddy.utility.RandomString;
 
@@ -36,5 +37,27 @@ public class CustomerService {
 		String encodedPassword = passwordEncoder.encode(customer.getPassword());
 		customer.setPassword(encodedPassword);
 	}
+	
+	
+	public Customer getByEmail(String email) {
+		return customerRepo.findByEmail(email);
+	}
+	
+	public void update(Customer customerForm) {
+		Customer customerDB = customerRepo.findById(customerForm.getId()).get();
+		if (!customerForm.getPassword().isEmpty()) {
+			String encodedPassword = passwordEncoder.encode(customerForm.getPassword());
+			customerForm.setPassword(encodedPassword);			
+		} else {
+			customerForm.setPassword(customerDB.getPassword());
+		}		
+		
+		customerForm.setStatus(customerDB.isStatus());
+		customerForm.setCreatedTime(customerDB.getCreatedTime());
+		customerDB.setName(customerForm.getName());
+		
+		customerRepo.save(customerForm);
+	}
+
 	
 }

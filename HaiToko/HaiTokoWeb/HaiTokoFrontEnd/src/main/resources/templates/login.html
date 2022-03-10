@@ -4,18 +4,12 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 	
-	<title>Hai Toko</title>
+	<title>Login</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-	<link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
 	
-	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
-	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
-	<script type="text/javascript" th:src="@{/js/scripts.js}"></script>
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" type="text/css" />
 </head>
-
 <body>
-	<div class="container-fluid">
+	<div class="container-fluid text-center">
 		<th:block sec:authorize="isAuthenticated()">	
 		<form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
 			<input type="submit" value="Logout" />
@@ -73,15 +67,39 @@
 			</div>
 		</nav>
 		<div>
-			<h1>Hai Toko</h1>
-			
+			<h2>Customer Login</h2>
 		</div>
-		
-		
+	
+		<form th:action="@{/login}" method="post" style="max-width: 400px; margin: 0 auto">
+			<div th:if="${param.error}">
+				<p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+			</div>
+			<div th:if="${param.logout}">
+				<p class="text-warning">Logged out</p>
+			</div>
+			
+			<div class="border border-secondary rounded p-3">
+				<p>
+					<input type="email" name="email" class="form-control" placeholder="E-mail" required />
+				</p>
+				<p>
+					<input type="password" name="password" class="form-control" placeholder="Password" required />
+				</p>
+				<p>
+					<input type="checkbox" name="remember-me" />&nbsp;Remember Me
+				</p>
+				<p>
+					<input type="submit" value="Login" class="btn btn-primary" />
+				</p>			
+			</div>
+		</form>
+
 		<!--Footer-->
 		<div>
 			<p>Copyright &copy; 2022 by HaiToko</p> 		
 		</div>
+		
 	</div>
+	
 </body>
 </html>

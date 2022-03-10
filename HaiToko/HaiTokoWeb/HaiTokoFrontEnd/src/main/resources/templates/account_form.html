@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 	
-	<title>Register</title>
+	<title>Account Details</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
 	<link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
 	
@@ -81,9 +81,12 @@
 		<div class="container-fluid">
 			<div>&nbsp;</div>
 		
-			<form th:action="@{/create_customer}" method="post" th:object="${customer}"
-				style="max-width: 600px; margin: 0 auto"
-				onsubmit="return checkEmailUnique(this);">
+			<form th:action="@{/update_account_details}" method="post" th:object="${customer}"
+				style="max-width: 650px; margin:  0 auto;">
+			<div th:if="${message != null}" class="text-center alert alert-success">
+				[[${message}]]
+			</div>
+			<input type="hidden" th:field="*{id}"/>
 			<div class="border border-secondary rounded p-3">
 				<div class="form-group row">
 					<label class="col-sm-4 col-form-label">Enter Name:</label>
@@ -96,28 +99,23 @@
 				<div class="form-group row">
 					<label class="col-sm-4 col-form-label">E-mail:</label>
 					<div class="col-sm-8">
-						<input type="email" th:field="*{email}" class="form-control"
-							required="required" maxlength="45" minlength="8" />
+						<input type="email" th:field="*{email}" class="form-control" readonly="readonly" />
 					</div>
 				</div>
 		
 				<div class="form-group row">
 					<label class="col-sm-4 col-form-label">Password:</label>
 					<div class="col-sm-8">
-						<input type="password" th:field="*{password}" class="form-control"
-							required="required" maxlength="15" minlength="5"
-							oninput="checkPasswordMatch(document.getElementById('confirmPassword'))"
-							 />
+						<input type="password" th:field="*{password}" class="form-control"maxlength="15" minlength="5"
+							oninput="checkPasswordMatch(document.getElementById('confirmPassword'))" placeholder="Leave blank if you dont want to change"/>
 					</div>
 				</div>
 		
 				<div class="form-group row">
 					<label class="col-sm-4 col-form-label">Re-type Password:</label>
 					<div class="col-sm-8">
-						<input type="password" id="confirmPassword" class="form-control"
-							required="required" maxlength="15" minlength="5"
-							oninput="checkPasswordMatch(this)"
-							 />
+						<input type="password" id="confirmPassword" class="form-control"maxlength="15" minlength="5"
+							oninput="checkPasswordMatch(this)"/>
 					</div>
 				</div>
 				
@@ -154,7 +152,7 @@
 				</div>
 																						
 				<div class="text-center">
-					<input type="submit" value="Create Account" class="btn btn-primary" />
+					<input type="submit" value="Update Account" class="btn btn-primary" />
 				</div>
 			</div>
 			</form>
@@ -196,27 +194,6 @@
 		}
 	}
 	
-	function checkEmailUnique(form) {
-		url = contextPath + "customers/check_unique_email";
-		customerEmail = $("#email").val();
-		csrfValue = $("input[name='_csrf']").val();
-		
-		params = {email: customerEmail, _csrf: csrfValue};
-		
-		$.post(url, params, function(response) {
-			if (response == "OK") {
-				form.submit();
-			} else if (response == "Duplicated") {
-				showWarningModal("Email is already registered");
-			} else {
-				showErrorModal("Server cannot response to the request");
-			}			
-		}).fail(function() {
-			showErrorModal("Cannot connect to the server");	
-		});
-		
-		return false;
-	}	
 	
 	function showModalDialog(title, message) {
 		$("#modalTitle").text(title);

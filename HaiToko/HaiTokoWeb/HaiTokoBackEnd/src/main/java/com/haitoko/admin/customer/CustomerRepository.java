@@ -10,9 +10,6 @@ import com.haitoko.share.entity.Customer;
 
 public interface CustomerRepository extends PagingAndSortingRepository<Customer, Integer> {
 	
-	@Query("SELECT c FROM Customer c WHERE CONCAT(c.email, ' ', c.name, ' ', "
-			+ "c.address, ' ', c.city, ' ', c.state) LIKE %?1%")
-	public Page<Customer> findAll(String keyword, Pageable pageable);
 	
 	@Query("UPDATE Customer c SET c.status = ?2 WHERE c.id = ?1")
 	@Modifying
