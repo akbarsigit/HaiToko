@@ -6,7 +6,6 @@
 	
 	<title>Account Details</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-	<link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
 	
 	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
@@ -65,8 +64,12 @@
 							<div class="dropdown-menu">
 								<a class="dropdown-item" href="javascript: document.logoutForm.submit()" id="logoutId">Logout</a>
 							</div>
+						</li>
+						
+						<li "nav-item">
+							<a class="nav-link" id="weather"></a>
 						</li>		
-	
+		
 					</th:block>	
 				
 				</ul>

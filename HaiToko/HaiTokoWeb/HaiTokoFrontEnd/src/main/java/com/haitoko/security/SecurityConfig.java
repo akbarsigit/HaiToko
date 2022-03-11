@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/js/**", "/webjars/**");
+		web.ignoring().antMatchers("/js/**", "/webjars/**", "/image/**");
 	}
 
 	@Bean
@@ -45,10 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return new CustomerUserDetailsService();
 	}
 	
-//	@Override
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.authenticationProvider(authenticationProvider());
-//	}
 	
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {

@@ -6,7 +6,6 @@
 	
 	<title>Hai Toko</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
-	<link rel="stylesheet" type="text/css" th:href="@{/style.css}"/>
 	
 	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
@@ -41,8 +40,7 @@
 							<a class="nav-link" th:href="@{/register}">Register</a>
 						</li>
 					</th:block>
-					
-		
+			
 					<th:block sec:authorize="isAuthenticated()">
 						
 						<li class="nav-item">
@@ -65,8 +63,12 @@
 							<div class="dropdown-menu">
 								<a class="dropdown-item" href="javascript: document.logoutForm.submit()" id="logoutId">Logout</a>
 							</div>
-						</li>		
-	
+						</li>				
+						
+						<li "nav-item">
+							<a class="nav-link" id="weather"></a>
+						</li>
+						
 					</th:block>	
 				
 				</ul>
@@ -74,6 +76,8 @@
 		</nav>
 		<div>
 			<h1>Hai Toko</h1>
+	
+			<p id="weather"></p>
 			
 		</div>
 		
@@ -83,5 +87,12 @@
 			<p>Copyright &copy; 2022 by HaiToko</p> 		
 		</div>
 	</div>
+	
+	<script>
+		
+	
+	</script>
+	
+	
 </body>
 </html>

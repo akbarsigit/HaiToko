@@ -26,7 +26,7 @@ public class CustomerController {
 	@Autowired private CustomerService service;
 	
 	@GetMapping("/customers")
-	public String listByPage(Model model) {
+	public String listCustomer(Model model) {
 		List<Customer> listCustomers = service.listAll();
 		model.addAttribute("listCustomers", listCustomers);
 		return "customers/customers";

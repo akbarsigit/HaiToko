@@ -23,7 +23,6 @@
 		<module>HaiTokoFrontEnd</module>
 	</modules>
 	
-	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

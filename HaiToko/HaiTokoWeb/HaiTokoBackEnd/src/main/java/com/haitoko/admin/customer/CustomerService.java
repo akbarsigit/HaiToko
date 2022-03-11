@@ -20,7 +20,6 @@ import com.haitoko.share.exception.CustomerNotFoundException;
 @Service
 @Transactional
 public class CustomerService {
-	public static final int CUSTOMERS_PER_PAGE = 10;
 	
 	@Autowired private CustomerRepository customerRepo;
 	@Autowired private PasswordEncoder passwordEncoder;
