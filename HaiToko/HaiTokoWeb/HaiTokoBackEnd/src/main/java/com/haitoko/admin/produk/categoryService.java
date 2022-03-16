@@ -19,7 +19,7 @@ public class categoryService{
     private categoryRepository cRepository;
 
     public List<categoryModel> listAll(){
-        return (List<categoryModel>) cRepository.findAll();
+        return cRepository.findAll();
     }
 
     public void delete(Integer id){

@@ -95,48 +95,77 @@
 						</li>
 					</ul>
 				</div>
-
-				<h1 class="text-center fs-1">Perbarui Kategori Product</h1>
-				<form action="" th:action="@{/updateKategori}" method="post" th:object="${kategori}">
-					<div class="mb-3">
-						<label for="kategori_produk" class="form-label">Kategori Produk</label>
-						<input
-							type="text"
-							class="form-control form-control-lg"
-							name="kategori_produk"
-							id="kategori_produk"
-							aria-describedby="helpId"
-							placeholder="Masukkan kategori"
-							th:field="*{kategori}"
-						/>
-						<small id="helpId" class="form-text text-muted"
-							>Pastikan penulisannya sudah benar</small
-						>
-					</div>
-
-					<div class="mb-3">
-						<label for="deskripsi" class="form-label"></label>
-						<textarea
-							class="form-control form-control-lg"
-							aria-describedby="helpId"
-							name="deskripsi"
-							id="deskripsi"
-							rows="5"
-							placeholder="Masukkan deskripsi kategori"
-							th:field="*{deskripsi}"
-						></textarea>
-						<small id="helpId" class="form-text text-muted"
-							>Pastikan penulisannya sudah benar</small
-						>
-					</div>
-					<div class="container-fluid text-center">
-						<button type="submit" class="btn btn-primary btn-lg">Perbarui</button>
-						<button type="submit" class="btn btn-secondary btn-lg" th:formaction="@{/back}">
-							Batal
-						</button>
-					</div>
-				</form>
 			</nav>
+		</div>
+
+		<div class="container shadow-sm p-5 mx-auto custom-container bg-light rounded-5">
+			<h1 class="text-center fs-1">Tambahkan Product</h1>
+			<form action="" th:action="@{/addProduct}" method="post" th:object="${product}">
+				<div class="mb-3">
+					<label for="" class="form-label">Nama Produk</label>
+					<input
+						type="text"
+						class="form-control form-control-lg"
+						name=""
+						id=""
+						aria-describedby="helpId"
+						placeholder="Masukkan nama produk anda"
+						th:field="*{namaProduk}"
+					/>
+					<small id="helpId" class="form-text text-muted"
+						>Pastikan penulisannya sudah benar</small
+					>
+				</div>
+				<div class="mb-3">
+					<label for="" class="form-label">Nomor Produk</label>
+					<input
+						type="text"
+						class="form-control form-control-lg"
+						name=""
+						id=""
+						aria-describedby="helpId"
+						placeholder="Masukkan nomor produk anda"
+						th:field="*{nomorProduk}"
+					/>
+					<small id="helpId" class="form-text text-muted"
+						>Pastikan penulisannya sudah benar</small
+					>
+				</div>
+				<div class="mb-3">
+					<label for="" class="form-label">Kategori</label>
+					<select
+						class="form-select form-select-lg mb-3"
+						aria-label=".form-select-lg example"
+						th:field="*{kategori}"
+					>
+						<option th:each="category : ${kategori}" th:value="${category.kategori_id}">
+							[[${category.kategori}]]
+						</option>
+					</select>
+				</div>
+
+				<div class="mb-3">
+					<label for="" class="form-label">Stok</label>
+					<input
+						type="number"
+						class="form-control form-control-lg"
+						name=""
+						id=""
+						aria-describedby="helpId"
+						placeholder="Stok inisial anda"
+						th:field="*{stok}"
+					/>
+					<small id="helpId" class="form-text text-muted"
+						>Pastikan penulisannya sudah benar</small
+					>
+				</div>
+				<div class="container-fluid text-center">
+					<button type="submit" class="btn btn-primary btn-lg">Tambahkan</button>
+					<button type="submit" class="btn btn-secondary btn-lg" th:formaction="@{/back}">
+						Batal
+					</button>
+				</div>
+			</form>
 		</div>
 	</body>
 </html>

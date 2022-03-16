@@ -96,49 +96,69 @@
 					</ul>
 				</div>
 			</nav>
-			<div class="col-10">
-				<div class="container">
-					<table class="table table-striped table-hover">
-						<thead class="theadt-default">
-							<tr>
-								<th>No</th>
-								<th>Kategori</th>
-								<th>Deskripsi</th>
-								<th>Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="c : ${produkList}">
-								<td class="col-1" th:text="${c.kategori_id}">[[${c.kategori_id}]]</td>
-								<td class="col-4" th:text="${c.kategori}">[[${c.kategori}]]</td>
-								<td class="col-3" th:text="${c.deskripsi}">[[${c.deskripsi}]]</td>
-								<td class="col-3">
-									<div class="row">
-										<div class="col-4">
-											<button
-												type="button"
-												class="btn btn-primary btn-sm"
-												th:formaction="@{'/viewKategori/' + {c.id}}"
-											>
-												View
-											</button>
-										</div>
-										<div class="col-4">
-											<button
-												type="button"
-												class="btn btn-success btn-sm"
-												th:formaction="@{'/editKategori/' + {c.id}}"
-											>
-												Edit
-											</button>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+			<div class="container">
+				<nav class="nav nav-tabs flex-pills">
+					<a class="nav-link mx-auto" href="#" th:href="@{/addKategori}">Tambah Kategori</a>
+					<a class="nav-link mx-auto" href="#" th:href="@{/updateKategori}">Perbarui Kategori</a>
+				</nav>
+			</div>
+	
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-2">
+						<div class="container">
+							<nav class="nav nav-tabs flex-column" aria-label="#">
+								<a class="nav-link" href="#" th:href="@{/backtoindex}">Dashboard</a>
+								<a class="nav-link" href="#">Message</a>
+								<a class="nav-link" href="#">Setting</a>
+							</nav>
+						</div>
+					</div>
+					<!-- batas -->
+					<div class="col-10">
+						<div class="container">
+							<table class="table table-striped table-hover">
+								<thead class="theadt-default">
+									<tr>
+										<th>No</th>
+										<th>Kategori</th>
+										<th>Deskripsi</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="c : ${categoryList}">
+										<td class="col-1" th:text="${c.kategori_id}">[[${c.kategori_id}]]</td>
+										<td class="col-4" th:text="${c.kategori}">[[${c.kategori}]]</td>
+										<td class="col-3" th:text="${c.deskripsi}">[[${c.deskripsi}]]</td>
+										<td class="col-3">
+											<div class="row">
+												<div class="col-4">
+													<button
+														type="button"
+														class="btn btn-primary btn-sm"
+														th:formaction="@{'/viewKategori/' + {c.id}}"
+													>
+														View
+													</button>
+												</div>
+												<div class="col-4">
+													<button
+														type="button"
+														class="btn btn-success btn-sm"
+														th:formaction="@{'/editKategori/' + {c.id}}"
+													>
+														Edit
+													</button>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
 	</body>
 </html>

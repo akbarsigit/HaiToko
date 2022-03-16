@@ -15,12 +15,25 @@ public class productController {
 
     @Autowired
     private productService pService;
+    
+    @Autowired
+    private categoryService cService;
 
-    @GetMapping("/kategoriManagemen")
+    @GetMapping
     public String index(Model model){
-        // model.addAttribute("produkList", pService.listAll());
+        productModel pModel = new productModel();
+        model.addAttribute("produkList", pService.listAll());
         
-        return "list_kategori";
+        return "index";
+    }
+
+    @GetMapping("/updateProduk")
+    public String perbarui(Model model){
+        productModel pModel = new productModel();
+        model.addAttribute("product", pModel);
+        model.addAttribute("kategori", cService.listAll());
+        
+        return "form_perbarui_produk";
     }
 
     // controller untuk mengatur form tambah produk
@@ -29,13 +42,13 @@ public class productController {
         productModel pModel = new productModel();
         model.addAttribute("product", pModel);
 
-        // model.addAttribute("kategori", cService.listAll());
+        model.addAttribute("kategori", cService.listAll());
 
         return "form_tambah_produk";
     }
 
-    @GetMapping("/view/{id}")
-    public String viewPage(@PathVariable("id") Integer id, Model model){
+    @GetMapping("/view")
+    public String viewPage(Integer id, Model model){
         productModel pModel = new productModel();
         model.addAttribute("product", pModel);
         model.addAttribute("product", pService.get(id));
@@ -68,8 +81,8 @@ public class productController {
         return "index";
     }
 
-    @GetMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Integer id, productModel pModel){
+    @GetMapping("/delete")
+    public String delete(Integer id, productModel pModel){
         pService.delete(id);
 
         return "redirect:/";

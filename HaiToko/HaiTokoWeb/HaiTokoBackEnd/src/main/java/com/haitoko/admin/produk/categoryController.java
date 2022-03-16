@@ -22,10 +22,13 @@ public class categoryController {
     @Autowired
 	private categoryService cService;
 
-	@GetMapping("/categories")
+	@Autowired
+	private productService pService;
+
+	@GetMapping("/kategoriManagemen")
 	public String listKategori(Model model){
-		List<categoryModel> cModel = cService.listAll();
-		model.addAttribute("kategori", cModel);
+		categoryModel cModel = new categoryModel();
+		model.addAttribute("categoryList", cService.listAll());
 		// model.addAttribute
 
 		return "list_kategori";
@@ -41,11 +44,11 @@ public class categoryController {
 	}
     
 	// pergi ke form perbarui kategori
-	@GetMapping("/editKategori/{id}")
-	public String goUpdate(@PathVariable("id") Integer id, Model model){
+	@GetMapping("/updateKategori")
+	public String goUpdate(Model model){
 		categoryModel cModel = new categoryModel();
 		model.addAttribute("kategori", cModel);
-		model.addAttribute("kategori", cService.findById(id));
+		// model.addAttribute("kategori", cService.findById(id));
 
 		return "form_perbarui_kategori";
 	}
@@ -66,8 +69,8 @@ public class categoryController {
 		return "redirect:/";
 	}
 
-	@GetMapping("/viewKategori/{id}")
-	public String view(@PathVariable("id") Integer id, Model model){
+	@GetMapping("/viewKategori")
+	public String view(Integer id, Model model){
 		categoryModel cModel = new categoryModel();
 		model.addAttribute("kategori", cModel);
 		model.addAttribute("kategori", cService.findById(id));
@@ -89,5 +92,23 @@ public class categoryController {
 		model.addAttribute("kategori", cService.listAll());
 
 		return "form_perbarui_product";
+	}
+
+	@PostMapping("/backtocategory")
+	public String backToCategory(Model model){
+		categoryModel cModel = new categoryModel();
+		model.addAttribute("categoryList", cService.listAll());
+		// model.addAttribute
+
+		return "redirect:/kategoriManagemen";
+	}
+
+	@GetMapping("/backtoindex")
+	public String backToIndex(Model model){
+		productModel pModel = new productModel();
+		model.addAttribute("product", pModel);
+		model.addAttribute("produkList", pService.listAll());
+
+		return "redirect:/";
 	}
 }
