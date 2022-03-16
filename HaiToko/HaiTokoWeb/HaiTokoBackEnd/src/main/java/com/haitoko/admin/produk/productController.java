@@ -19,12 +19,12 @@ public class productController {
     @Autowired
     private categoryService cService;
 
-    @GetMapping
+    @GetMapping("/products")
     public String index(Model model){
         productModel pModel = new productModel();
         model.addAttribute("produkList", pService.listAll());
         
-        return "index";
+        return "produk_list";
     }
 
     @GetMapping("/updateProduk")
@@ -61,14 +61,14 @@ public class productController {
     public String batal(Model model){
         productModel pModel = new productModel();
         model.addAttribute("product", pModel);
-        return "redirect:/";
+        return "redirect:/products";
     }
 
     // tombol kirim form tambah produk
     @PostMapping("/addProduct")
     public String doAdd(productModel pModel){
         pService.save(pModel);
-        return "redirect:/";
+        return "redirect:/products";
     }
 
     // tombol kirim form perbarui produk
@@ -78,14 +78,14 @@ public class productController {
         model.addAttribute("product", pService.listAll());
 
         pService.save(pModel);
-        return "index";
+        return "produk_list";
     }
 
     @GetMapping("/delete")
     public String delete(Integer id, productModel pModel){
         pService.delete(id);
 
-        return "redirect:/";
+        return "redirect:/products";
     }
 
 }

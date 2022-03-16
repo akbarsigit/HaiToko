@@ -58,7 +58,7 @@ public class categoryController {
 	public String add(categoryModel cModel){
 		cService.save(cModel);
 
-		return "redirect:/";
+		return "redirect:/kategoriManagemen";
 	}
 
 	// perbarui kategori
@@ -66,7 +66,7 @@ public class categoryController {
 	public String update(categoryModel cModel){
 		cService.update(cModel);
 
-		return "redirect:/";
+		return "redirect:/kategoriManagemen";
 	}
 
 	@GetMapping("/viewKategori")
@@ -109,6 +109,6 @@ public class categoryController {
 		model.addAttribute("product", pModel);
 		model.addAttribute("produkList", pService.listAll());
 
-		return "redirect:/";
+		return "redirect:/products";
 	}
 }
