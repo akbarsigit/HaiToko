@@ -24,14 +24,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-//		http.authorizeRequests().anyRequest().permitAll();
-		
 		http.authorizeRequests()
 		.antMatchers("/customer").authenticated()
 		.anyRequest().permitAll().and()
 		.formLogin().loginPage("/login").usernameParameter("email").permitAll().and()
 		.logout().permitAll().and()
-		.rememberMe().key("1234567890_aBcDeFgHiJkLmNoPqRsTuVwXyZ").tokenValiditySeconds(1 * 24 * 59 * 59);	
+		.rememberMe().key("1234567890_aBcDeFgHiJkLmNoPqRsTuVwXyZ").tokenValiditySeconds(1 * 24 * 1 * 1);	
 		
 	}
 

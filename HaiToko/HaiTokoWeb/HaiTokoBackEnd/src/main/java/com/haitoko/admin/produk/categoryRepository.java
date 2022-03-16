@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface categoryRepository extends JpaRepository<categoryModel, Integer> {
 
-    public Long countById(Integer id);	
+//    public Long countById(Integer id);	
     
 }

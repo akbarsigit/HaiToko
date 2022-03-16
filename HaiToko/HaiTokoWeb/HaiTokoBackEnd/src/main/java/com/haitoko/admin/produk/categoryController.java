@@ -1,4 +1,4 @@
-package com.haitoko.admin.produk
+package com.haitoko.admin.produk;
 
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class categoryController {
     @Autowired
 	private categoryService cService;
 
-	@GetMapping
+	@GetMapping("/categories")
 	public String listKategori(Model model){
 		List<categoryModel> cModel = cService.listAll();
 		model.addAttribute("kategori", cModel);
