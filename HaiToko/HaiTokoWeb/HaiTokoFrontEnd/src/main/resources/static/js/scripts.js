@@ -36,7 +36,7 @@ $(document).ready(function(){
 		function onSuccess(position){
 			var  apiKey = "4644fa98c58f8eb00826d23a7b4b6e2d";
 			var {latitude, longitude} = position.coords;
-			let api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+			let api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`;
 			fetch(api).then(response => response.json()).then(result => weatherDetails(result));
 		}
 	
